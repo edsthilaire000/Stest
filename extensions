@@ -1,0 +1,17 @@
+#!/bin/bash
+# === EXTENSIÓN: AUTO BACKUP ===
+# 🔒 Guarda copias del mundo cada cierto tiempo
+
+INTERVAL_MINUTES=30
+BACKUP_DIR="../backups"
+
+mkdir -p "$BACKUP_DIR"
+
+echo "🔄 Auto Backup iniciado. Guardando cada $INTERVAL_MINUTES minutos..."
+
+while true; do
+    sleep $((INTERVAL_MINUTES * 60))
+    TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
+    tar -czf "$BACKUP_DIR/world_$TIMESTAMP.tar.gz" ../world 2>/dev/null
+    echo "✅ Backup guardado en backups/world_$TIMESTAMP.tar.gz"
+done
